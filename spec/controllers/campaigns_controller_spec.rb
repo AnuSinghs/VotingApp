@@ -16,7 +16,7 @@ RSpec.describe CampaignsController, type: :controller do
       campaign2 = FactoryBot.create(:campaign, name: 'Campaign 2')
 
       # Create the existing campaigns after the expected campaigns
-      existing_campaigns = FactoryBot.create_list(:campaign, 3)
+      FactoryBot.create_list(:campaign, 3)
 
       get :index
 
@@ -26,7 +26,6 @@ RSpec.describe CampaignsController, type: :controller do
       expect(assigns(:campaigns)).to include(campaign1, campaign2)
     end
   end
-
 
   describe 'GET show' do
     it 'renders the show template' do
@@ -67,9 +66,9 @@ RSpec.describe CampaignsController, type: :controller do
     it 'assigns the candidates with their scores' do
       get :votes, params: { id: campaign.id }
       expect(assigns(:candidates_with_scores)).to eq([
-        { candidate: 'Antony', score: 1 },
-        { candidate: 'Leon', score: 1 },
-        { candidate: 'Tupele', score: 2 }
+          { candidate: 'Tupele', score: 2 },
+          { candidate: 'Antony', score: 1 },
+          { candidate: 'Leon', score: 1 },
       ])
     end
 

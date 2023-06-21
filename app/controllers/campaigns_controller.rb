@@ -8,6 +8,10 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find(params[:id])
     @candidates = @campaign.votes.group(:choice).select(:choice, 'COUNT(*) as vote_count').order('vote_count DESC')
     @uncounted_messages_count = @campaign.votes.where.not(validity: 'during').count
+
+    @candidates_with_scores = @candidates.map { |candidate| { candidate: candidate.choice, score: candidate.vote_count } }
+
+    Rails.logger.info("Candidates with scores: #{@candidates_with_scores}")
   end
 
   def import_votes
@@ -18,7 +22,11 @@ class CampaignsController < ApplicationController
 
   def votes
     @campaign = Campaign.find(params[:id])
-    @candidates_with_scores = @campaign.votes.group(:choice).select(:choice, 'COUNT(*) as score').order('score DESC').map { |v| { candidate: v.choice, score: v.score } }
+    @candidates_with_scores = @campaign.votes
+                                       .group(:choice)
+                                       .select(:choice, 'COUNT(*) as score')
+                                       .order('score DESC, choice ASC')
+                                       .map { |v| { candidate: v.choice, score: v.score } }
     @uncounted_messages = @campaign.votes.where.not(validity: 'during').count
   end
 
@@ -55,3 +63,4 @@ class CampaignsController < ApplicationController
     }
   end
 end
+

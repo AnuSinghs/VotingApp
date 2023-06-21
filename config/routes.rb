@@ -4,9 +4,13 @@
 Rails.application.routes.draw do
   root "campaigns#index"
 
-  resources :campaigns, only: [:index, :show, :create] do
-    get 'votes', on: :member
+  resources :campaigns, only: [:index, :show] do
+    member do
+      get :votes
+    end
+    collection do
+      post :import_votes
+    end
   end
-
-  post 'campaigns/import_votes', to: 'campaigns#import_votes', as: 'import_votes'
 end
+

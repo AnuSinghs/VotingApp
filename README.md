@@ -31,6 +31,9 @@ To run the SMS Voting Application locally:
 * Place your votes.txt log file in the public directory.
 * Start the Rails server with rails server.
 * Open your web browser and visit http://localhost:3000/ to access the application.
+* In a separate terminal or command prompt, navigate to your Rails application directory Execute the task by running the command "rails import_log_data", This will read the contents of the votes.txt file located in the public directory and import the votes into the database.
+* Note: Make sure the votes.txt file exists in the public directory before executing the task.
+* After executing the task, you should see the imported votes reflected in your application's database.
 * Please note that you may need to modify the database configuration in config/database.yml if necessary
 
 ### Conclusion
