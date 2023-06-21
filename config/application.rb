@@ -1,5 +1,4 @@
 require_relative "boot"
-require 'rake'
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -12,13 +11,11 @@ module SmsVotingApp
     config.load_defaults 7.0
     # config.after_initialize do
     #   file_path = Rails.root.join('public', 'votes.txt')
-  
     #   if File.exist?(file_path)
     #     Rails.application.load_tasks
     #     Rake::Task['import_log_data'].invoke
     #   end
     # end
-
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
