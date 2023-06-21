@@ -1,0 +1,8 @@
+<!-- app/views/votes/votes.html.erb -->
+<h1>Votes for <%= @campaign.name %></h1>
+
+<% @candidates_with_scores.each do |candidate| %>
+  <p><%= candidate[:candidate] %> - <%= candidate[:score] %> votes</p>
+<% end %>
+
+<p>Uncounted Messages: <%= @uncounted_messages %></p>
