@@ -4,9 +4,9 @@
 This is a Rails application designed to handle SMS voting data, allowing users to view and analyze campaign results.
 
 ### Approach
- Approach to building this application involved the following steps:
+Approach to building this application involved the following steps:
 
-* Database Design: identified the key entities in the application, which include campaigns, candidates, and votes. We created corresponding database tables and defined their relationships using ActiveRecord associations
+* Database Design: identified the key entities in the application, which include campaigns, candidates, and votes also created corresponding database tables and defined their relationships using ActiveRecord associations
 * Controller and Routing: implemented controllers to handle the logic and data flow for the application and defined routes to map incoming requests to the appropriate controller actions
 * Views: designed views using HTML and ERB (Embedded Ruby) templates to present the data to the users also created index and show pages to display the list of campaigns and the details of each campaign respectively
 * Data Import: created a command-line script that reads a log file containing voting data. The script parses each line, discards any malformed lines, and imports valid data into the application by creating campaign and vote records
