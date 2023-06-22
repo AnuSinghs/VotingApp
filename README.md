@@ -12,6 +12,39 @@ Our approach to building this application involved the following steps:
 * Data Import: We created a command-line script that reads a log file containing voting data. The script parses each line, discards any malformed lines, and imports valid data into the application by creating campaign and vote records
 * User Interface: We focused on creating a user-friendly interface for the application. The front-end allows users to easily navigate through campaigns, view candidate scores, and see the number of uncounted messages for each campaign
 
+### Files added
+#### Gemfile
+* Gemfile
+
+#### Schema
+* db/schema.rb
+
+#### Models
+* app/models/campaign.rb
+* app/models/vote.rb
+
+#### Views
+* app/views/campaigns/index.html.erb
+* app/views/campaigns/show.html.erb
+* app/views/campaigns/votes.html.erb
+
+#### Controllers
+* app/controllers/campaigns_controller.rb
+
+#### Tasks
+* lib/tasks/import_log_data.rake
+
+#### Routes
+* config/routes.rb
+
+#### Public
+* public/votes.txt
+
+#### FactoryBot
+* spec/factories/campaigns.rb
+* spec/factories/votes.rb
+
+
 
 ### Design Decisions
 

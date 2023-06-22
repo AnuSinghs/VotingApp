@@ -9,3 +9,4 @@ FactoryBot.define do
     shortcode { '63334' }
   end
 end
+
