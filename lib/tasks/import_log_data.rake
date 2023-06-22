@@ -17,7 +17,9 @@ def import_line(line)
   choice = line[/Choice:(\S+)/, 1]
   validity = line[/Validity:(\S+)/, 1]
   conn = line[/CONN:(\S+)/, 1]
+  msisdn = line[/MSISDN:(\S+)/, 1]
+  guid = line[/GUID:(\S+)/, 1]
 
   campaign = Campaign.find_or_create_by(name: campaign_name)
-  campaign.votes.create(choice: choice, validity: validity, conn: conn)
+  campaign.votes.create(choice: choice, validity: validity, conn: conn, msisdn: msisdn, guid: guid)
 end

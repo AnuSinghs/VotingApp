@@ -11,6 +11,7 @@ module SmsVotingApp
     config.load_defaults 7.0
     # config.after_initialize do
     #   file_path = Rails.root.join('public', 'votes.txt')
+
     #   if File.exist?(file_path)
     #     Rails.application.load_tasks
     #     Rake::Task['import_log_data'].invoke

@@ -6,12 +6,22 @@ class CampaignsController < ApplicationController
 
   def show
     @campaign = Campaign.find(params[:id])
+    @votes = Vote.all
     @candidates = @campaign.votes.group(:choice).select(:choice, 'COUNT(*) as vote_count').order('vote_count DESC')
     @uncounted_messages_count = @campaign.votes.where.not(validity: 'during').count
+    @candidates_with_scores = @candidates.map { |candidate| { candidate: candidate.choice, score: candidate.vote_count.to_i } }
 
-    @candidates_with_scores = @candidates.map { |candidate| { candidate: candidate.choice, score: candidate.vote_count } }
+    # Incase if we want to show the data
+    # @conn_list = @campaign.votes.where.not(conn: nil).pluck(:conn).uniq
+    # @msisdn_list = @campaign.votes.where.not(msisdn: nil).pluck(:msisdn).uniq
+    # @guid_list = @campaign.votes.where.not(guid: nil).pluck(:guid).uniq
 
+    # Logging the results
+    Rails.logger.info("Campaign: #{@campaign}")
     Rails.logger.info("Candidates with scores: #{@candidates_with_scores}")
+    # Rails.logger.info("CONN List: #{@conn_list}")
+    # Rails.logger.info("MSISDN List: #{@msisdn_list}")
+    # Rails.logger.info("GUID List: #{@guid_list}")
   end
 
   def import_votes
@@ -40,9 +50,9 @@ class CampaignsController < ApplicationController
       campaign_name = vote_attributes[:campaign]
       choice = vote_attributes[:choice]
       validity = vote_attributes[:validity]
-      msisdn = vote_attributes[:msisdn]
-      guid = vote_attributes[:guid]
-      shortcode = vote_attributes[:shortcode]
+      # msisdn = vote_attributes[:msisdn]
+      # guid = vote_attributes[:guid]
+      # shortcode = vote_attributes[:shortcode]
 
       campaign = Campaign.find_or_create_by(name: campaign_name)
       campaign.votes.create(choice: choice, validity: validity, msisdn: msisdn, guid: guid, shortcode: shortcode)
@@ -50,17 +60,16 @@ class CampaignsController < ApplicationController
   end
 
   def parse_vote_line(line)
-    match_data = line.match(/VOTE (\d+) Campaign:(\S+) Validity:(\S+) Choice:(\S+) CONN:(\S+) MSISDN:(\S+) GUID:(\S+) Shortcode:(\S+)/)
+    match_data = line.match(/VOTE (\d+) Campaign:(\S+) Validity:(\S+) Choice:(\S+) CONN:(\S+) MSISDN:(\S+) GUID:(\S+)/)
     return nil unless match_data
 
     {
       campaign: match_data[2],
       validity: match_data[3],
-      choice: match_data[4],
-      msisdn: match_data[6],
-      guid: match_data[7],
-      shortcode: match_data[8]
+      choice: match_data[4]
+      # conn: match_data[5],
+      # msisdn: match_data[6],
+      # guid: match_data[7]
     }
   end
 end
-
